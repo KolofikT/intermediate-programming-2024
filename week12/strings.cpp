@@ -67,42 +67,119 @@ Tohle je raw string\n\n\n
 /* Napište funkci line_count, která spočítá kolik řádků má řetězec předaný
  * argumentem text. Řádky jsou odděleny znakem '\n' */
 int line_count(std::string text) {
-    return 0;
+    int lines = 1;
+    for(int i = 0; i < text.size(); i++){
+        char znak = text[i];
+        if(znak == '\n'){
+            lines++;
+        }
+    }
+    return lines;
 }
 
 /* Napište funkci word_count, která spočítá kolik slov má řetězec předaný
  * argumentem text. */
 int word_count(std::string text) {
-    return 0;
+    int words = 1;
+    for(int i = 0; i < text.size(); i++){
+        char space = text[i];
+        if(space == ' ' || space == '\n'){
+            words++;
+        }
+    }
+    return words;
 }
 
 /* Napište funkci paragraph_count, která spočítá kolik odstavců má řetězec předaný
  * argumentem text. */
 int paragraph_count(std::string text) {
-    return 0;
+    int odstavec = 1;
+    for(int i = 0; i < text.size(); i++){
+        char free_line = text[i];
+        if(free_line == '\n' && text[i+1] == '\n'){
+            odstavec++;
+        }
+    }
+    return odstavec;
 }
 
 /* Napište funkci lines, která rozdělí řetezec předaný v argumentu text na jednotlivé řádky.
  */
 std::vector<std::string> lines(std::string text) {
-    return {};
+    std::vector<std::string> string;
+    int first_znak = 0;
+    int last_znak = 0;
+    for(int i = 0; i < text.size(); i++){
+        char znak = text[i];
+        if(znak == '\n' ){
+            last_znak = i - first_znak;
+            std::string a = text.substr(first_znak, last_znak);
+            string.push_back(a);
+            first_znak = i + 1;
+        }
+    }
+    string.push_back(text.substr(first_znak));
+    return {string};
 }
-
+//aaaaaa/n/naaa
 /* Napište funkci words, která rozdělí řetezec předaný v argumentu text na jednotlivá slova. */
 std::vector<std::string> words(std::string text) {
-    return {};
+    std::vector<std::string> string;
+    int first_znak = 0;
+    int last_znak = 0;
+    for(int i = 0; i < text.size(); i++){
+        char znak = text[i];
+        if(znak == '\n' || znak == ' '){
+            if(text[i-1] != '\n'){
+                last_znak = i - first_znak;
+                std::string a = text.substr(first_znak, last_znak);
+                string.push_back(a);
+            }
+            first_znak = i + 1;    
+        }
+    }
+    string.push_back(text.substr(first_znak));
+    return {string};
 }
 
 /* Napište funkci paragraphs, která rozdělí řetezec předaný v argumentu text na jednotlivé odstavce. */
 std::vector<std::string> paragraphs(std::string text) {
-    return {};
+    std::vector<std::string> string;
+    int first_znak = 0;
+    int last_znak = 0;
+    for(int i = 0; i < text.size(); i++){
+        char znak = text[i];
+        if(znak == '\n' && text[i-1] == '\n'){
+            last_znak = i - first_znak - 1;
+            std::string a = text.substr(first_znak, last_znak);
+            string.push_back(a);
+            first_znak = i + 1;    
+        }
+    }
+    string.push_back(text.substr(first_znak));
+    return {string};
 }
 
 /* Naimplementujte funkci check_brackets,
  * která zkontroluje jestli je text předaný v argumentu text validní
  * Text je validní pokud každá otevírací závorka '(' má náležitou uzavírací závorku ')' */
 bool check_brackets(std::string text) {
-    return false;
+    int open_bracket = 0;
+    int closed_bracket = 0;
+    bool valid = false;
+    for(int i = 0; i < text.size(); i++){
+        char znak = text[i];
+        if(znak == '('){
+            open_bracket++;
+        }
+        if(znak == ')'){
+            closed_bracket++;
+        }
+    }
+    if(open_bracket == closed_bracket){
+        valid = true;
+    }
+    return valid;
 }
 
 int main() {
@@ -124,7 +201,7 @@ Final paragraph. Short and sweet.)";
     std::cout << "line_count passed!" << std::endl;
 
     // Test word_count
-    assert(word_count(testText) == 24); // Total words in testText
+    assert(word_count(testText) == 33); // Total words in testText
     std::cout << "word_count passed!" << std::endl;
 
     // Test paragraph_count
