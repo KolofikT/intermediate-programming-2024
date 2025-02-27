@@ -3,32 +3,44 @@
 #include <vector>
 
 int sum(int a, int b) {
-    return 0;
+    return a + b;
 }
 
 std::string sum(std::string a, std::string b) {
-    return "";
+    return a + b;
 }
 
 int sum(std::vector<int> xs) {
-    return 0;
+    int suma = 0;
+    for(int e : xs){
+       suma += e; 
+    }
+    return suma;
 }
 
 std::string sum(std::vector<std::string> xs) {
-    return "";
+    std::string suma;
+    for(std::string a : xs){
+        suma += a;
+    }
+    return suma;
 }
 
 int mul(int a, int b) {
-    return 0;
+    return a * b;
 }
 
 std::string mul(int a, std::string b) {
-    return "";
+    std::string multi;
+    for(int i = 0; i < a; i++){
+        multi += b;
+    }
+    return multi;
 }
 
 int main() {
     std::cout << "sum(3, 4): " << sum(3, 4) << "\n"; // 7
-    std::cout << R"(sum("Hello, ", "World!"): )" << sum("Hello, ", "World!") << "\n"; // Hello World
+    std::cout << R"(sum("Hello, ", "World!"): )" << sum("Hello, ", "World!") << "\n"; // Hello, World!
     std::cout << "sum({1, 2, 3, 4, 5}): " << sum(std::vector<int>{1, 2, 3, 4, 5}) << "\n"; // 15
     std::cout << R"(sum({"abc", "def", "ghi"}): )" << sum(std::vector<std::string>{"abc", "def", "ghi"}) << "\n"; // abcdefghi
 
