@@ -4,6 +4,7 @@
 #include <string>
 #include <tuple>
 #include <cassert>
+#include <map>
 
 // Konstanty pro typ záznamu
 bool ENTRY = true;
@@ -29,7 +30,18 @@ bool LEAVE = false;
 // nejstaršího záznamu po nejnovější.
 
 std::set<std::string> employees_with_missing_records(std::vector<std::tuple<std::string, int, bool>> records) {
-    return {};
+    std::set<std::string> result;
+    std::map<std::string, bool> employes;
+    for(auto [id, time, stav] : records){
+        if(stav != employes[id]){
+            employes[id] = stav;            
+        }
+        else{
+            result.insert(id);
+        }
+    }
+
+    return result;
 }
 
 void main_test() {

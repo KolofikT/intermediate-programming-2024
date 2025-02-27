@@ -4,7 +4,7 @@
 CXX = g++
 
 # Compiler flags
-CXXFLAGS = -Wall -std=c++20 -Werror -pedantic
+CXXFLAGS = -Wall -std=c++20 -Werror -pedantic -g
 
 # Linker flags
 LDFLAGS = 
